@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alquiler de cabañas en Merlo, San Luis. Tu descanso ideal rodeado de la naturaleza y el microclima de las Sierras de los Comechingones.">
+    <title>Cabañas Altos de Merlo | Descanso y Naturaleza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2F4F4F; 
+            --accent-color: #D4A373; 
+            --text-color: #333333;
+            --bg-light: #F9F9F9;
+            --white: #FFFFFF;
+            --whatsapp-green: #25D366;
+            --font-main: 'Montserrat', sans-serif;
+            --font-title: 'Playfair Display', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); color: var(--text-color); line-height: 1.6; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+        /* Navegación */
+        .navbar {
+            position: fixed; width: 100%; top: 0; background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; transition: all 0.3s ease;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+        .nav-links { list-style: none; display: flex; gap: 1.5rem; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); padding: 0 20px;
+        }
+        .hero-content { max-width: 800px; margin-top: 70px; }
+        .hero h1 { font-family: var(--font-title); font-size: 4rem; margin-bottom: 1rem; line-height: 1.1; }
+        .hero p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.9; }
+
+        /* Botones */
+        .btn {
+            display: inline-block; padding: 14px 35px; border-radius: 50px; text-decoration: none;
+            font-weight: 700; cursor: pointer; border: none; transition: all 0.3s;
+        }
+        .btn-primary { background-color: var(--accent-color); color: var(--white); box-shadow: 0 4px 15px rgba(212, 163, 115, 0.4); }
+        .btn-primary:hover { background-color: #b88a5b; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 163, 115, 0.5); }
+
+        /* Secciones Generales */
+        .section { padding: 100px 0; }
+        .bg-light { background-color: var(--bg-light); }
+        .section-title { text-align: center; font-family: var(--font-title); font-size: 3rem; color: var(--primary-color); margin-bottom: 4rem; position: relative; padding-bottom: 15px; }
+        .section-title::after { content: ''; position: absolute; width: 80px; height: 4px; background-color: var(--accent-color); bottom: 0; left: 50%; transform: translateX(-50%); }
+
+        /* Grillas - Cabañas */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
+        .card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-8px); }
+        .card-img { height: 260px; background-size: cover; background-position: center; }
+        .card-content { padding: 25px; }
+        .card-content h3 { font-family: var(--font-title); font-size: 1.6rem; color: var(--primary-color); margin-bottom: 12px; }
+        .card-content p { color: #666; font-size: 0.95rem; margin-bottom: 20px; }
+        .price { display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: var(--accent-color); border-top: 1px solid #eee; padding-top: 15px; }
+        .price span { color: var(--text-color); font-weight: 400; font-size: 0.8rem; }
+
+        /* Galería de Fotos */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .gallery-item { width: 100%; height: 250px; border-radius: 10px; overflow: hidden; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        /* Grillas - Servicios */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; text-align: center; }
+        .service-item { background: var(--white); padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid #eee; }
+        .service-icon { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
+        .service-item h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 1.3rem; }
+        .service-item p { color: #666; font-size: 0.9rem; }
+
+        /* Formulario de Contacto */
+        .contact-wrapper { max-width: 700px; margin: 0 auto; background: var(--white); padding: 50px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .input-group { margin-bottom: 1.8rem; display: flex; flex-direction: column; }
+        .input-group label { margin-bottom: 8px; font-weight: 600; color: var(--primary-color); font-size: 0.9rem; }
+        .input-group input, .input-group textarea { padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; transition: border 0.3s; font-size: 1rem; }
+        .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--accent-color); }
+        .contact-form .btn { width: 100%; font-size: 1.1rem; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        /* Mapa Google Maps */
+        .map-container { width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .map-container iframe { display: block; width: 100%; border: 0; }
+
+        /* Footer */
+        footer { background-color: var(--primary-color); color: rgba(255,255,255,0.8); padding: 50px 0; text-align: center; }
+        footer .logo { color: var(--white); margin-bottom: 15px; display: block; }
+        footer p { font-size: 0.9rem; margin-bottom: 5px; }
+
+        /* Botón WhatsApp Flotante */
+        .whatsapp-float {
+            position: fixed; width: 65px; height: 65px; bottom: 30px; right: 30px;
+            background-color: var(--whatsapp-green); color: var(--white); border-radius: 50px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.2); z-index: 1000; display: flex;
+            align-items: center; justify-content: center; text-decoration: none; 
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 2px 2px 20px rgba(0,0,0,0.3); }
+
+        /* Responsividad Móvil */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .nav-links { display: none; } 
+            .section-title { font-size: 2.4rem; }
+            .contact-wrapper { padding: 30px; }
+            .whatsapp-float { width: 55px; height: 55px; bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#inicio" class="logo">Altos de Merlo</a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#cabanas">Cabañas</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Tu refugio en el tercer microclima del mundo</h1>
+            <p>Disfrutá de la tranquilidad de la Villa con todas las comodidades. Cabañas de primer nivel al pie de las Sierras de los Comechingones.</p>
+            <a href="#contacto" class="btn btn-primary">Reservá tu estadía</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="cabanas" class="section">
+            <div class="container">
+                <h2 class="section-title">Nuestras Cabañas</h2>
+                <div class="grid-layout">
+                    <article class="card">
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=800&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Cabaña Los Molles</h3>
+                            <p>Escapada romántica con vista al valle. Cama king size, hidromasaje y deck privado.</p>
+                            <div class="price">Desde $45.000 <span>/ noche</span></div>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=800&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Cabaña Pasos Malos</h3>
+                            <p>Amplia y luminosa para 4 personas. Dos habitaciones, cocina completa y asador propio.</p>
+                            <div class="price">Desde $65.000 <span>/ noche</span></div>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Cabaña Rincón del Este</h3>
+                            <p>Capacidad para 6 personas. Piscina privada climatizada, hogar a leña y cochera cubierta.</p>
+                            <div class="price">Desde $90.000 <span>/ noche</span></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Conocé el Complejo</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=800&auto=format&fit=crop" alt="Vista del entorno natural">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?q=80&w=800&auto=format&fit=crop" alt="Interior acogedor">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?q=80&w=800&auto=format&fit=crop" alt="Desayuno serrano">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1542314831-c6a4d27d66f6?q=80&w=800&auto=format&fit=crop" alt="Piscina exterior">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop" alt="Paisaje de las sierras">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=800&auto=format&fit=crop" alt="Fogón nocturno">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="section">
+            <div class="container">
+                <h2 class="section-title">Servicios Destacados</h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <div class="service-icon">📡</div>
+                        <h3>Fibra Óptica</h3>
+                        <p>Wi-Fi de alta velocidad, ideal si necesitas trabajar con vista a la sierra.</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">🏊‍♂️</div>
+                        <h3>Piscina y Solarium</h3>
+                        <p>Gran piscina de uso común rodeada de parque autóctono.</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">🥐</div>
+                        <h3>Desayuno Serrano</h3>
+                        <p>Incluye pan casero, mermeladas regionales y hierbas locales.</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">🗺️</div>
+                        <h3>Asesoramiento</h3>
+                        <p>Te guiamos sobre los mejores senderos, arroyos y gastronomía.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Reservá tu estadía</h2>
+                <div class="contact-wrapper">
+                    <form id="form-reserva" class="contact-form">
+                        <div class="input-group">
+                            <label for="nombre">Nombre o responsable de reserva</label>
+                            <input type="text" id="nombre" placeholder="Ej: Juan Pérez" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="fechas">Fechas de ingreso y salida</label>
+                            <input type="text" id="fechas" placeholder="Ej: 15 al 20 de Enero" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="mensaje">¿Cuántas personas son y qué dudas tienes?</label>
+                            <textarea id="mensaje" rows="4" placeholder="Hola, somos 2 adultos y 1 niño..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="background-color: #25D366; color: white;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                            </svg>
+                            Consultar por WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="ubicacion" class="section">
+            <div class="container">
+                <h2 class="section-title">Cómo Llegar</h2>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106695.66012480393!2d-65.05060824999999!3d-32.3421595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d2e330f6a29b43%3A0xc6de9b3074d32f50!2sVilla%20de%20Merlo%2C%20San%20Luis!5e0!3m2!1ses-419!2sar!4v1709681335041!5m2!1ses-419!2sar" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <a href="#inicio" class="logo">Altos de Merlo</a>
+            <p>&copy; 2026 Complejo Altos de Merlo. Todos los derechos reservados.</p>
+            <p>Villa de Merlo, San Luis, Argentina.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5492656000000?text=Hola!%20Me%20contacto%20desde%20la%20web%20para%20consultar%20disponibilidad." class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Efecto de la barra de navegación al hacer scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '5px 0';
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                navbar.style.padding = '0';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Lógica del Formulario a WhatsApp (Sin campo de Email)
+        document.getElementById('form-reserva').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const nombre = document.getElementById('nombre').value;
+            const fechas = document.getElementById('fechas').value;
+            const mensaje = document.getElementById('mensaje').value;
+
+            // REEMPLAZAR ESTE NÚMERO
+            const telefono = "5492656000000"; 
+
+            const textoMensaje = `¡Hola! Me contacto desde la web del complejo para consultar disponibilidad.\n\n` +
+                                 `*Datos de la reserva:*\n` +
+                                 `- A nombre de: ${nombre}\n` +
+                                 `- Fechas solicitadas: ${fechas}\n\n` +
+                                 `*Detalles/Consulta:*\n${mensaje}`;
+
+            const textoCodificado = encodeURIComponent(textoMensaje);
+            const urlWhatsApp = `https://wa.me/${telefono}?text=${textoCodificado}`;
+            
+            window.open(urlWhatsApp, '_blank');
+        });
+    </script>
+</body>
+</html>
