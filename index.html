@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Alquiler de cabañas en Merlo, San Luis. Tu descanso ideal rodeado de la naturaleza y el microclima de las Sierras de los Comechingones.">
     <title>Cabañas Altos de Merlo | Descanso y Naturaleza</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -30,10 +31,20 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; transition: all 0.3s ease;
         }
         .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--primary-color); text-decoration: none; z-index: 1001; }
+        
         .nav-links { list-style: none; display: flex; gap: 1.5rem; }
         .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent-color); }
+
+        /* Menú Hamburguesa (Oculto en PC) */
+        .menu-toggle {
+            display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001;
+        }
+        .menu-toggle .bar {
+            width: 30px; height: 3px; background-color: var(--primary-color); border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
 
         /* Hero Section */
         .hero {
@@ -100,6 +111,37 @@
         footer .logo { color: var(--white); margin-bottom: 15px; display: block; }
         footer p { font-size: 0.9rem; margin-bottom: 5px; }
 
+        /* FIRMA DEL DESARROLLADOR - SIERRAS WEB (SOLO TEXTO) */
+        .agency-credit {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .sierras-logo-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: #FFFFFF; /* Sierras en blanco porque el footer es oscuro */
+            letter-spacing: -0.5px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .sierras-logo-text span {
+            color: #0284C7; /* Azul Sierras Web */
+        }
+        
+        .sierras-logo-text:hover {
+            opacity: 0.8;
+        }
+
         /* Botón WhatsApp Flotante */
         .whatsapp-float {
             position: fixed; width: 65px; height: 65px; bottom: 30px; right: 30px;
@@ -114,10 +156,34 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.8rem; }
             .hero p { font-size: 1.1rem; }
-            .nav-links { display: none; } 
             .section-title { font-size: 2.4rem; }
             .contact-wrapper { padding: 30px; }
             .whatsapp-float { width: 55px; height: 55px; bottom: 20px; right: 20px; }
+            
+            /* --- ESTILOS DEL MENÚ MÓVIL --- */
+            .menu-toggle { display: flex; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: left 0.4s ease;
+            }
+            .nav-links.active { left: 0; }
+            .nav-links a { font-size: 1.5rem; }
+            
+            /* Animación de la X */
+            .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+            
+            .agency-credit { flex-direction: column; gap: 5px; }
         }
     </style>
 </head>
@@ -126,13 +192,20 @@
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="#inicio" class="logo">Altos de Merlo</a>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#cabanas">Cabañas</a></li>
-                <li><a href="#galeria">Galería</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <li><a href="#ubicacion">Ubicación</a></li>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#cabanas" class="nav-link">Cabañas</a></li>
+                <li><a href="#galeria" class="nav-link">Galería</a></li>
+                <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                <li><a href="#ubicacion" class="nav-link">Ubicación</a></li>
             </ul>
         </div>
     </nav>
@@ -183,22 +256,22 @@
                 <h2 class="section-title">Conocé el Complejo</h2>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=800&auto=format&fit=crop" alt="Vista del entorno natural">
+                        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=800&auto=format&fit=crop" alt="Vista del entorno natural" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?q=80&w=800&auto=format&fit=crop" alt="Interior acogedor">
+                        <img src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?q=80&w=800&auto=format&fit=crop" alt="Interior acogedor" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?q=80&w=800&auto=format&fit=crop" alt="Desayuno serrano">
+                        <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?q=80&w=800&auto=format&fit=crop" alt="Desayuno serrano" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1542314831-c6a4d27d66f6?q=80&w=800&auto=format&fit=crop" alt="Piscina exterior">
+                        <img src="https://images.unsplash.com/photo-1542314831-c6a4d27d66f6?q=80&w=800&auto=format&fit=crop" alt="Piscina exterior" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop" alt="Paisaje de las sierras">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop" alt="Paisaje de las sierras" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=800&auto=format&fit=crop" alt="Fogón nocturno">
+                        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=800&auto=format&fit=crop" alt="Fogón nocturno" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -273,8 +346,16 @@
     <footer>
         <div class="container footer-content">
             <a href="#inicio" class="logo">Altos de Merlo</a>
-            <p>&copy; 2026 Complejo Altos de Merlo. Todos los derechos reservados.</p>
+            <p>© 2026 Complejo Altos de Merlo. Todos los derechos reservados.</p>
             <p>Villa de Merlo, San Luis, Argentina.</p>
+            
+            <div class="agency-credit">
+                <span>Desarrollado por</span>
+                <a href="https://www.sierrasweb.com.ar/" target="_blank" class="sierras-logo-text">
+                    Sierras<span>Web</span>
+                </a>
+            </div>
+
         </div>
     </footer>
 
@@ -299,6 +380,25 @@
             }
         });
 
+        // --- LÓGICA DEL MENÚ MÓVIL (Hamburguesa) ---
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        // Abrir/Cerrar al tocar la hamburguesa
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar el menú automáticamente al tocar un enlace
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menuToggle.classList.remove('is-active');
+                navLinks.classList.remove('active');
+            });
+        });
+
         // Lógica del Formulario a WhatsApp (Sin campo de Email)
         document.getElementById('form-reserva').addEventListener('submit', function(e) {
             e.preventDefault(); 
@@ -307,7 +407,7 @@
             const fechas = document.getElementById('fechas').value;
             const mensaje = document.getElementById('mensaje').value;
 
-            // REEMPLAZAR ESTE NÚMERO
+            // REEMPLAZAR ESTE NÚMERO CON EL DEL COMPLEJO
             const telefono = "5492656000000"; 
 
             const textoMensaje = `¡Hola! Me contacto desde la web del complejo para consultar disponibilidad.\n\n` +
